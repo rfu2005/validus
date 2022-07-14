@@ -1,0 +1,11 @@
+.container {
+  width: 600px;
+  margin: 20px auto;
+  background-color: lightgray;
+}
+
+ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}

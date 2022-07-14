@@ -1,0 +1,47 @@
+<div class="container">
+  <p>Albums</p>
+
+  <div *ngIf="album$ | async as albums" class="list">
+    <div *ngIf="sort$ | async as sortInfo" class="header">
+      <div
+        class="name"
+        [ngClass]="getClass(sortInfo, 'name')"
+        (click)="changeSortOrder('name')"
+      >
+        Name
+      </div>
+      <div
+        class="year"
+        [ngClass]="getClass(sortInfo, 'year_released')"
+        (click)="changeSortOrder('year_released')"
+      >
+        Year released
+      </div>
+    </div>
+    <div *ngFor="let album of albums" class="details">
+      <div class="name">
+        {{ album.name }}
+      </div>
+      <div class="year">
+        {{ album.year_released }}
+      </div>
+    </div>
+    <div
+      *ngIf="paginataion$ | async as info"
+      class="d-flex justify-content-center mt-5"
+    >
+      <pagination
+        [boundaryLinks]="true"
+        [totalItems]="info[1]"
+        [(ngModel)]="info[0]"
+        (pageChanged)="changePage($event.page)"
+        [itemsPerPage]="10"
+        previousText="&lsaquo;"
+        nextText="&rsaquo;"
+        firstText="&laquo;"
+        lastText="&raquo;"
+      >
+      </pagination>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,47 @@
+<div class="container">
+  <p>Songs</p>
+
+  <div *ngIf="songs$ | async as songs" class="list">
+    <div *ngIf="sort$ | async as sortInfo" class="header">
+      <div
+        class="name"
+        [ngClass]="getClass(sortInfo, 'name')"
+        (click)="changeSortOrder('name')"
+      >
+        Name
+      </div>
+      <div
+        class="track"
+        [ngClass]="getClass(sortInfo, 'track')"
+        (click)="changeSortOrder('track')"
+      >
+        Track #
+      </div>
+    </div>
+    <div *ngFor="let song of songs" class="details">
+      <div class="name">
+        {{ song.name }}
+      </div>
+      <div class="track">
+        {{ song.track }}
+      </div>
+    </div>
+    <div
+      *ngIf="pagination$ | async as info"
+      class="d-flex justify-content-center mt-5"
+    >
+      <pagination
+        [boundaryLinks]="true"
+        [totalItems]="info[1]"
+        [(ngModel)]="info[0]"
+        (pageChanged)="changePage($event.page)"
+        [itemsPerPage]="10"
+        previousText="&lsaquo;"
+        nextText="&rsaquo;"
+        firstText="&laquo;"
+        lastText="&raquo;"
+      >
+      </pagination>
+    </div>
+  </div>
+</div>

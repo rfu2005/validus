@@ -1,0 +1,35 @@
+<div class="container">
+  <p>Artists</p>
+
+  <div *ngIf="artists$ | async as artists" class="list">
+    <div *ngIf="sort$ | async as sortInfo" class="header">
+      <div
+        class="name"
+        [ngClass]="getClass(sortInfo, 'name')"
+        (click)="changeSortOrder('name')"
+      >
+        Name
+      </div>
+    </div>
+    <div *ngFor="let artist of artists" class="details">
+      {{ artist.name }}
+    </div>
+    <div
+      *ngIf="paginataion$ | async as info"
+      class="d-flex justify-content-center mt-5"
+    >
+      <pagination
+        [boundaryLinks]="true"
+        [totalItems]="info[1]"
+        [(ngModel)]="info[0]"
+        (pageChanged)="changePage($event.page)"
+        [itemsPerPage]="10"
+        previousText="&lsaquo;"
+        nextText="&rsaquo;"
+        firstText="&laquo;"
+        lastText="&raquo;"
+      >
+      </pagination>
+    </div>
+  </div>
+</div>
